@@ -19,32 +19,30 @@ class State(var items: MutableList<String> = mutableListOf("j"),
 @Model
 class E(var show: Boolean = false)
 ```
-## App
-```
 
+## App
+```kotlin
 @Composable
 fun App(state: State = State()){
     val arr = mutableListOf("Filip")
 
    MaterialTheme {
        FlexColumn {
-
-           expanded(flex = 1f){
+          expanded(flex = 1f){
                bar(state, E())
-              // ButtonRow(state, E())
            }
            
           expanded(flex = 1f) {
               Enter(state)
           }
 
-           expanded(flex = 8f){
+          expanded(flex = 8f){
                Items(state)
            }
-
        }
    }
 }
+```
 
 
 ## AppBar
