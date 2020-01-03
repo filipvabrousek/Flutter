@@ -1,4 +1,4 @@
-# Compose
+# Flutter
 Learning JetPack Compose from 3/1/2020
 
 ```dart
