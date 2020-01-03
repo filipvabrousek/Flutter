@@ -1,5 +1,14 @@
 # Compose
-Learning JetPack Compose from 1/1/2020
+Learning JetPack Compose from 3/1/2020
 
-1) [Kotlin](https://github.com/filipvabrousek/Compose/blob/master/Kotlin.md)
-2) [Tasks](https://github.com/filipvabrousek/Compose/blob/master/Tasks.md)
+```dart
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Hello",
+      home: Text("Filip"),
+    );
+  }
+}
+```
