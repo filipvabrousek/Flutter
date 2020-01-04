@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-
 class Second extends StatelessWidget {
  @override
   Widget build(BuildContext context) {
@@ -16,26 +15,114 @@ void main() => runApp(Wrapper());
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return S();
-  }
-}
 
-
-class Navigator extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-
+    return MaterialApp(
+      title: "Title",
+      home: S(),
+    );
 
   }
 }
-
 
 
 class S extends StatefulWidget {
   @override
   _App createState() => _App();
 }
+
+
+class Navigator extends State<S> {
+  int idx = 0;
+  final tasks = ["Filip"];
+  static const List<Widget> options = [Text("Hello"), Text("View 2")];
+  ScrollController cr = new ScrollController();
+  TextEditingController edit = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hello"),
+      ),
+      body: Center(
+        child: Center(
+          child: options.elementAt(idx),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: idx,
+          onTap: (value) {
+            idx = value;
+            setState(() {});
+          },
+
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_a_photo),
+                title: Text("Hey")
+            ),
+
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_a_photo),
+                title: Text("Hey")
+            )
+          ]
+      ),
+    );
+  }
+
+
+  Widget main() {
+    return Container(
+        child: Column(
+          children: [
+            field(),
+            list()
+          ],
+        )
+    );
+  }
+
+  Widget field(){
+    return
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child:  TextField(
+          controller: edit,
+          decoration: InputDecoration(
+              border: InputBorder.none, hintText: "Enter search term"),
+        ),
+      );
+  }
+
+
+  Widget list(){
+    return
+      Expanded(
+        child: ListView(
+          controller: cr,
+          children:
+          tasks.reversed.map((data) {
+            return cell(data);
+          }).toList(),
+        ),
+      );
+  }
+
+
+  Widget cell(String content){
+    return Dismissible(
+      key: UniqueKey(),
+      child: ListTile(
+        title: Text(content),
+      ),
+    );
+  }
+
+}
+
+
+
 
 /*---------------------------APP---------------------------*/
 class _App extends State<S> {
@@ -179,6 +266,19 @@ class _App extends State<S> {
     );
   }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
