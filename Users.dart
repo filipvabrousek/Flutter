@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() => runApp(Wrapper());
 
@@ -77,18 +78,18 @@ class Detail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-        color: Colors.blue,
-        child: Center(
-          child: Text(data),
-        ));
-    //Container(color: Colors.green); // Text(data);
+    return
+    Scaffold(
+      body:Center(
+        child: Text(data, style: TextStyle(fontWeight: FontWeight.bold)),
+      )
+    );
+
   }
 }
 
 class Post {
   final String name;
-
   Post({this.name});
 }
 
@@ -109,7 +110,7 @@ class Second extends StatelessWidget {
   Widget list(BuildContext ctx) {
     return Expanded(
       child: ListView(
-        reverse: true,
+        reverse: false,
         children: tasks.reversed.map((data) {
           return cell(data.name, ctx);
         }).toList(),
@@ -131,86 +132,35 @@ class Second extends StatelessWidget {
               MaterialPageRoute(builder: (context) => Detail(data: content)));
         });*/
 
+
+
+
+
+
   Widget stack(String content, BuildContext ctx) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: 100,
-        ),
-
-        Positioned.fill(
-          child: Container(
-            child: Text("Hello"),
+    return Padding(
+        padding: EdgeInsets.all(6.0),
+        child: ListTile(
+          title: Row(
+            children: <Widget>[
+              Text(content, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24))
+            ],
+          ) ,//
+          leading: CircleAvatar(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.orange,
+            backgroundImage: AssetImage("images/wanaka.jpg"),
+            radius: 30.0,
           ),
-        ),
-
-        Positioned.fill(
-            child: FadeInImage(
-              placeholder: AssetImage("images/wanaka.jpg"),
-              image: AssetImage("images/wanaka.jpg"),
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              fadeInDuration: Duration(milliseconds: 100),
-              fadeInCurve: Curves.linear,
-            )),
-
-
-       /* ClipRRect(
-          borderRadius: BorderRadius.circular(25.0),
-          child: Positioned.fill(
-              child: FadeInImage(
-                width: 50,
-                height: 50,
-                placeholder: AssetImage("images/wanaka.jpg"),
-                image: AssetImage("images/wanaka.jpg"),
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                fadeInDuration: Duration(milliseconds: 100),
-                fadeInCurve: Curves.linear,
-
-              )),
-        )*/
-
-
-
-
-
-
-      ],
+            onTap: () {
+              Navigator.push(ctx,
+                  MaterialPageRoute(
+                      builder: (context) => Detail(data: content)));
+            })
     );
   }
 
-/*
-  new Stack(
-  children: <Widget>[
-    new Positioned.fill(
-      child: new FadeInImage(
-        placeholder: new AssetImage('placeholder.png'),
-        image: new CachedNetworkImageProvider(photos[int].url),
-        fit: BoxFit.contain,
-        alignment: Alignment.center,
-        fadeInDuration: new Duration(milliseconds: 200),
-        fadeInCurve: Curves.linear,
-      ),
-    ),
-    new Positioned(
-      top: 10.0,
-      left: 10.0,
-      child: new Container(
-        child: new Text(photos[int].title)
-      ),
-    ),
-  ],
-)
-  * */
 
-/*Text(
-            content,
-            style: TextStyle(
-                backgroundColor: Colors.green,
-                color: Colors.white,
-                fontSize: 20)
-        ));*/
 }
 
 /*---------------------------APP---------------------------*/
@@ -273,12 +223,14 @@ class App extends State<PageThree> {
       if (edit.text.isEmpty) {
         emptyAlert();
       } else {
-        tasks.add("${edit.text}");
-        edit.clear();
-        cr.jumpTo(cr.position.minScrollExtent);
+        Future.delayed(Duration(milliseconds: 500), (){
+          setState(() {
+             tasks.add("${edit.text}");
+             cr.jumpTo(cr.position.maxScrollExtent + 30);
+             edit.clear();
+             });
+        });
       }
-
-      // cr.animateTo(0.0, duration: Duration(milliseconds: 100), curve: Curves.easeOut);
     });
   }
 
@@ -305,8 +257,8 @@ class App extends State<PageThree> {
     return Expanded(
       child: ListView(
         controller: cr,
-        reverse: true,
-        children: tasks.reversed.map((data) {
+        reverse: false,
+        children: tasks.map((data) {
           return cell(data);
         }).toList(),
       ),
