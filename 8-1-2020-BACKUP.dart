@@ -139,15 +139,17 @@ class Navigatora extends State<S> {
           },
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.add_a_photo), title: Text("One")),
+                icon: Icon(Icons.access_time), title: Text("One")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.add_a_photo), title: Text("Two")),
+                icon: Icon(Icons.access_time), title: Text("Two")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.add_a_photo), title: Text("Three")),
+                icon: Icon(Icons.access_time), title: Text("Three")),
           ]),
     );
   }
 }
+
+
 
 class P {
   String name;
@@ -239,6 +241,9 @@ class Detail extends StatelessWidget {
       children: [row(), list(), field()],
     );
   }
+
+
+
 
   // Web fetch
   // https://www.youtube.com/watch?v=aIJU68Phi1w
@@ -402,20 +407,39 @@ class App extends State<PageThree> {
     return Column(
       children: [
         list(),
-        Row(
-          children: [
-            Container(
-              width: 200,
-              child: field(),
-            ),
-            float()
-          ],
-        )
+        heigher(),
       ],
     );
   }
 
-  _add() {
+
+  Widget heigher(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      height: 70,
+    child: rowa(),
+    );
+  }
+
+  Widget rowa(){
+    return Row(
+      children: [
+        Expanded(
+          child: field()
+        ),
+
+        Container(
+          padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+          child: FlatButton(
+            child: Text("Send"),
+            onPressed: add,
+          ),
+        ),
+      ]
+    );
+  }
+
+  add() {
     setState(() {
       if (edit.text.isEmpty) {
         emptyAlert();
@@ -487,10 +511,17 @@ class App extends State<PageThree> {
   }
 
   Widget float() {
-    return FloatingActionButton(
+    return /*FloatingActionButton(
       onPressed: _add,
       child: Text("+"),
       backgroundColor: Colors.lightBlue,
+    );*/
+
+
+
+    FlatButton(
+      onPressed: add,
+      child: Text("Send"),
     );
   }
 
