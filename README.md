@@ -1,5 +1,5 @@
 # Flutter
-Learning JetPack Compose from 3/1/2020
+Learning Flutter from 3/1/2020
 
 ```dart
 class App extends StatelessWidget {
