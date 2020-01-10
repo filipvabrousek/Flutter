@@ -3,9 +3,9 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert'; //'package:convert/convert.dart';
 import 'package:image_picker/image_picker.dart';
+
 // import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:http/http.dart' as http;
-
 
 void main() => runApp(Wrapper());
 
@@ -14,6 +14,44 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: S(),
+    );
+  }
+}
+
+class Settings extends State<SettingsPage> {
+  var atext = "None";
+  final ctrl = TextEditingController();
+
+
+  @override
+  void dispose() {
+    ctrl.dispose();
+    super.dispose();
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    var tr = "";
+
+    return Column(
+      children: [
+        TextField(
+          controller: ctrl,
+          decoration: InputDecoration(
+              border: InputBorder.none, hintText: 'Enter a search term')
+        /*  onChanged: (text) {
+            atext = text;
+          },*/
+        ),
+        FlatButton(
+          child: Text("Hey"),
+          onPressed: () {
+            tr = ctrl.text;
+          },
+        )
+      ],
     );
   }
 }
@@ -28,6 +66,10 @@ class ChatPage extends StatefulWidget {
 
 class FetchPage extends StatefulWidget {
   XA createState() => XA();
+}
+
+class SettingsPage extends StatefulWidget {
+  Settings createState() => Settings();
 }
 
 /*---------------------------------------------------------------APP---------------------------------------------------------------
@@ -71,16 +113,13 @@ class App extends State<ChatPage> {
     );
   }
 
-
-
   Future getImage() async {
     print("L");
     var img = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState((){
+    setState(() {
       image = img;
     });
   }
-
 
   Widget cChild(M m) {
     return Stack(
@@ -93,8 +132,7 @@ class App extends State<ChatPage> {
     );
   }
 
-
-  Widget picker(){
+  Widget picker() {
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {},
@@ -192,7 +230,6 @@ class App extends State<ChatPage> {
   Widget rowa() {
     return Row(children: [
       Expanded(child: field()),
-
       Container(
         padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
         child: FlatButton(
@@ -200,7 +237,6 @@ class App extends State<ChatPage> {
           onPressed: add,
         ),
       ),
-
       Container(
         padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
         child: FlatButton(
@@ -208,9 +244,6 @@ class App extends State<ChatPage> {
           onPressed: getImage,
         ),
       ),
-
-
-
     ]);
   }
 
@@ -330,8 +363,6 @@ class XA extends State<FetchPage> {
   }
 }
 
-
-
 Widget RCell(String race) {
   return Padding(
     padding: EdgeInsets.all(12.0),
@@ -385,6 +416,10 @@ class Navigatora extends State<S> {
         return FetchPage();
         break;
 
+      case 3:
+        return SettingsPage();
+        break;
+
       // default:
       //   return Second(); //PageFour();
     }
@@ -415,6 +450,8 @@ class Navigatora extends State<S> {
                 icon: Icon(Icons.access_time), title: Text("Nav")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.access_time), title: Text("Fetch")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.access_time), title: Text("Settings")),
           ]),
     );
   }
@@ -881,6 +918,5 @@ NOT WORKING AS WIDGET ???
     );
   }
 */
-
 
 // flutter run --debug
